@@ -1,0 +1,63 @@
+<div id="content">
+
+<div ng-include="'static/partials/parts/navbar.html'"></div>
+
+<h4>{{mensagem}}</h4>	
+		
+	<fieldset class="form-group" style="background-color: #9ACD32; border-radius: 2px;">
+	
+	<legend class="scheduler-border" style="background-color: #9ACD32; border-radius: 2px;" >Cadastro</legend>	
+	
+	<form>	
+	
+	<div class="form-group row">
+		<label class="col-sm-2 control-label" style="text-align: right;">Nome:</label>	
+		<div class="col-sm-5">	
+		<input type="text" ng-model="nome" class="form-control" placeholder="Insira o nome completo." />		
+		</div>
+		<div class="col-sm-4">
+		<!-- <form:errors path="nome" class="form-control" style="color: red;" /> -->		
+		</div>
+		</div>
+		
+		<div class="form-group row">
+		<label class="col-sm-2 control-label" style="text-align: right;">E-mail:</label>	
+		<div class="col-sm-5">	
+		<input type="text" ng-model="email" class="form-control" placeholder="Insira e-mail válido." />		
+		</div>
+		<div class="col-sm-4">
+		<!-- <form:errors path="email" class="form-control" style="color: red;" /> -->		
+		</div>
+		</div>
+				
+		<div class="form-group row">
+		<label class="col-sm-2 control-label" style="text-align: right;">Login:</label>	
+		<div class="col-sm-5">	
+		<input type="text" ng-model="login" class="form-control" placeholder="Insira o seu login entre 4 e 10 caracteres." />			
+		</div>
+		<div class="col-sm-4">
+		<!-- <form:errors path="login" class="form-control" style="color: red;" /> -->		
+		</div>
+		</div>
+	
+		<div class="form-group row">
+		<label class="col-sm-2 control-label" style="text-align: right;">Senha:</label>	
+		<div class="col-sm-5">	
+		<input type="password" ng-model="senha" class="form-control" placeholder="Insira uma senha entre 4 e 10 caracteres." />		
+		</div>
+		<div class="col-sm-4">
+		<!-- <form:errors path="senha" class="form-control" style="color: red;" /> -->
+		</div>
+		</div>
+		
+		<div class="form-group row">
+		<label class="col-sm-2 control-label" style="text-align: right;"></label>
+		<div class="col-sm-5">
+		<button type="submit" class="btn btn-default">Cadastrar</button>	
+		</div>
+		</div>		
+			
+</form>	
+
+</fieldset>
+</div>
