@@ -111,3 +111,15 @@ legend.scheduler-border {
     border: none;
     font-size: 14px;
 }
+
+button.btn-default {
+background-color: #438e4f;
+  border-color: #365233;
+  color: white;
+}
+
+button.btn-default:hover {
+	background-color: #365233;
+	border-color: #365233;
+	color: #cabb6d;	
+}

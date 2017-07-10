@@ -17,10 +17,13 @@
 
 <!-- Angularjs --> 	
 	<script type="text/javascript" charset="utf-8" src="static/javascript/angular/angular.js"></script>    
-    <script type="text/javascript" charset="utf-8" src="static/javascript/angular-route/angular-route.js"></script>    
-    <script type="text/javascript" charset="utf-8" src="static/javascript/app.js"></script>        
+    <script type="text/javascript" charset="utf-8" src="static/javascript/angular-route/angular-route.js"></script>
+    <script type="text/javascript" charset="utf-8" src="static/javascript/angular-messages/angular-messages.js"></script>    
+    <script type="text/javascript" charset="utf-8" src="static/javascript/app.js"></script>  
+    <script type="text/javascript" charset="utf-8" src="static/javascript/services/UserService.js"></script>      
     <script type="text/javascript" charset="utf-8" src="static/javascript/controllers/HomeCtrl.js"></script>
     <script type="text/javascript" charset="utf-8" src="static/javascript/controllers/CadUserCtrl.js"></script>
+    
             
 </head>
 
@@ -30,7 +33,7 @@
       
 <div ng-include="'static/partials/parts/header.html'"></div>
 
-<div class="row" style="min-height: 500px;">
+<div class="row" style="min-height: 520px;">
     
     <ng-view></ng-view>
 

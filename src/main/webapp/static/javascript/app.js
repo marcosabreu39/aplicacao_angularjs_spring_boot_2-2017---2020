@@ -1,7 +1,7 @@
 /**
  * 
  */
-angular.module('myApp',['ngRoute']);
+angular.module('myApp',['ngRoute','ngMessages']);
 
 angular.module('myApp').config(function($routeProvider, $locationProvider) {
 	
@@ -10,7 +10,7 @@ angular.module('myApp').config(function($routeProvider, $locationProvider) {
 	$routeProvider
 	.when('/home', {
         templateUrl : 'static/partials/public/home.html',
-        controller : 'HomeCtrl',
+        controller : 'HomeCtrl',        
         resolve : {
         	pagina : function() {
         		return 'home';

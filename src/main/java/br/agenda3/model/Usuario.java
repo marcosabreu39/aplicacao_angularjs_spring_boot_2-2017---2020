@@ -12,9 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
 import org.springframework.stereotype.Component;
-
 import br.agenda3.auxiliar.UniqueEmail;
 import br.agenda3.auxiliar.UniqueLogin;
 
