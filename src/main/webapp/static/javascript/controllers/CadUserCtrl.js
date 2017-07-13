@@ -13,16 +13,30 @@ angular.module('myApp').controller('CadUserCtrl', ['$scope', 'pagina','UserServi
                $scope.usuario = data;
            });
        }*/
+    
+   
+    $scope.errorMessage = [];    
+    
+    $scope.resetServerValidation = function(formName, attribute){    	
+    	
+    	if($scope.errorMessage[attribute] != null){		        	     	
+    		
+    		formName[attribute].$setValidity('errorServer', true);
+        	
+        	$scope.errorMessage[attribute] = "";    	
+        	        
+    	}
+    	
+    }; 
      
-    $scope.saveUser = function() {
-        $scope.submitted = true;
+    $scope.saveUser = function(formName) {
+        $scope.submitted = true;            
                 
-          if ($scope.formCadUser.$valid) { 	  
+          if (formName.$valid) { 	  
         	  
             UserService.saveUser($scope.usuario)
               .then (function success(response) {
-                  $scope.mensagem = 'Usuário cadastrado com sucesso!';
-                  /*$scope.mensagem = '';*/
+                  $scope.mensagem = 'Usuário cadastrado com sucesso!';                  
                   /*$scope.getUser();*/
                   $scope.usuario = null;
                   $scope.submitted = false;     
@@ -38,7 +52,7 @@ angular.module('myApp').controller('CadUserCtrl', ['$scope', 'pagina','UserServi
                     
                     angular.forEach($scope.errorMessage, function(message, attribute) {
                     	
-                    	$scope.formCadUser[attribute].$setValidity('errorServer', false);
+                    	formName[attribute].$setValidity('errorServer', false);
                     	
                     });                               
                                                                                 
@@ -53,9 +67,10 @@ angular.module('myApp').controller('CadUserCtrl', ['$scope', 'pagina','UserServi
                                     
             });              
             
-          }
+          }     
+          
     }
     
-   /*$scope.getUser();*/    
+   /*$scope.getUser();*/     
 	
 }]);
