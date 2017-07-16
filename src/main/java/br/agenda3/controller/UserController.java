@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -14,10 +15,17 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.agenda3.dao.UsuarioDao;
 import br.agenda3.model.Usuario;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	Usuario usuario;
+	
+	@Autowired	
+	UsuarioDao usuarioDao;
 
 	@PostMapping(value = "/usuario")
 	public ResponseEntity<Object> saveUser(@Valid Usuario usuario, BindingResult br, Model model) {
@@ -29,13 +37,14 @@ public class UserController {
 		if (br.hasErrors()) {
 			List<FieldError> errors = br.getFieldErrors();
 			for (FieldError error : errors) {
-				/*System.out.println(error.getField() + " " + error.getDefaultMessage());*/
+				
 				erros.put(error.getField(), error.getDefaultMessage());
 
 				retorno = new ResponseEntity<>(erros, HttpStatus.CONFLICT);
 			}
 		} else {
-			/* persist aqui */
+			
+			usuarioDao.persist(usuario);
 
 			retorno = new ResponseEntity<>(HttpStatus.CREATED);
 		}

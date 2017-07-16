@@ -7,13 +7,14 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.agenda3.dao.UsuarioDao;
+import br.agenda3.dao.GenericDao;
+import br.agenda3.model.Usuario;
 
 @Component
 public class Auxiliar {
 
 	@Autowired
-	private UsuarioDao usuarioDao;
+	private GenericDao<Usuario> usuarioDao;
 
 	public Date gerarDataEhoraAtual() {
 		Date data = new Date(System.currentTimeMillis());

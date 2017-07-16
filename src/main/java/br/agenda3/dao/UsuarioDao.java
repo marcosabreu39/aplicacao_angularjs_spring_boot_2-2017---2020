@@ -6,18 +6,23 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import br.agenda3.auxiliar.Auxiliar;
 import br.agenda3.config.HibernateUtil;
 import br.agenda3.model.Usuario;
 
 @Repository
 public class UsuarioDao implements GenericDao<Usuario> {
-
+		
 	private Session session;
-
-	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-
+	
+	@Autowired	
+	private Auxiliar auxiliar;
+	
+	SessionFactory sessionFactory = HibernateUtil.getSessionFactory();	
+	
 	@Override
 	public Usuario find(Serializable id) {
 		session = sessionFactory.openSession();
@@ -27,7 +32,8 @@ public class UsuarioDao implements GenericDao<Usuario> {
 	@Override
 	public void persist(Usuario usuario) {
 		session = sessionFactory.openSession();
-		session.beginTransaction();
+		session.beginTransaction();		
+		usuario.setDataCadastro(auxiliar.gerarDataEhoraAtual());
 		session.persist(usuario);
 		session.getTransaction().commit();
 	}
