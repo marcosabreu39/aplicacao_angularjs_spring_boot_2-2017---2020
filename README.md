@@ -3,6 +3,7 @@
 ## Tecnologias
 
 * Arquitetura MVC;
+* Design Pattern DAO;
 * Spring MVC 4;
 * Angularjs;
 * Bootstrap 3;
