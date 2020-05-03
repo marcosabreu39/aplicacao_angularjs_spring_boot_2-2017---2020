@@ -1,7 +1,8 @@
-# Agenda com Spring e Hibernate
+# Agenda com Angularjs, Spring e Hibernate
 
 ## Tecnologias
 
+* Java 8;
 * Arquitetura MVC;
 * Design Pattern DAO;
 * Spring MVC 4;
