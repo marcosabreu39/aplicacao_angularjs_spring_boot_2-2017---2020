@@ -1,4 +1,4 @@
-# AgendaSpringHbn
+# Agenda com Spring e Hibernate
 
 ## Tecnologias
 
