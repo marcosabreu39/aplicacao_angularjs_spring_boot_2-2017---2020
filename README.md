@@ -21,5 +21,5 @@ Prévia da aplicação
 [comment]: # '
 ![](https://github.com/marcosabreu39/Agenda_Spring_Angularjs_Hibernate/blob/master/src/main/webapp/static/images/AgendaSpringHbn.gif)'
 <p align="center">
-  <img width="800" src="https://github.com/marcosabreu39/Agenda_Spring_Angularjs_Hibernate/blob/master/src/main/webapp/static/images/AgendaSpringHbn.gif">
+  <img width="1600" src="https://github.com/marcosabreu39/Agenda_Spring_Angularjs_Hibernate/blob/master/src/main/webapp/static/images/agspringresthbn.gif">
 </p>
