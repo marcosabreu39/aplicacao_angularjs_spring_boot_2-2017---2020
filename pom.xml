@@ -87,12 +87,11 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.2.4.Final</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/cn.guoyukun.jdbc/oracle-ojdbc6 -->
 		<dependency>
-			<groupId>com.hynnet</groupId>
-			<artifactId>oracle-driver-ojdbc</artifactId>
-			<version>12.1.0.2</version>
-		</dependency>		
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.5</version>
+		</dependency>	
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
     		<groupId>com.fasterxml.jackson.core</groupId>
