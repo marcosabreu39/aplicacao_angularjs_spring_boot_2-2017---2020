@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
 import org.springframework.stereotype.Component;
-import br.agenda3.auxiliar.UniqueEmail;
-import br.agenda3.auxiliar.UniqueLogin;
 
 @Entity
 @Component
@@ -26,20 +26,19 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = -8238587905744175289L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_seq")
+	@SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", allocationSize = 1)
 	private Integer id;
 
 	@Column(nullable = false)
 	@Size(min = 4, max = 30, message = "Mínimo de 4 e máximo de 30 caracteres.")
 	private String nome;
 
-	@Column(nullable = false, unique = true)
-	@UniqueEmail(message = "Esse e-mail já está cadastrado.")
+	@Column(nullable = false, unique = true)	
 	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")		
 	private String email;
 
-	@Column(unique = true, nullable = false)
-	@UniqueLogin(message = "Esse login já está cadastrado.")
+	@Column(unique = true, nullable = false)	
 	@Size(min = 4, max = 12, message = "Mínimo de 4 e máximo de 12 caracteres.")
 	private String login;
 

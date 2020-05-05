@@ -15,8 +15,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.agenda3.dao.UsuarioDao;
 import br.agenda3.model.Usuario;
+import br.agenda3.repository.UsuarioRepository;
 
 @RestController
 public class UserController {
@@ -25,7 +25,7 @@ public class UserController {
 	Usuario usuario;
 	
 	@Autowired	
-	UsuarioDao usuarioDao;
+	UsuarioRepository usuarioRepository;
 
 	@PostMapping(value = "/usuario")
 	public ResponseEntity<Object> saveUser(@Valid Usuario usuario, BindingResult br, Model model) {
@@ -44,7 +44,7 @@ public class UserController {
 			}
 		} else {
 			
-			usuarioDao.persist(usuario);
+			usuarioRepository.save(usuario);
 
 			retorno = new ResponseEntity<>(HttpStatus.CREATED);
 		}
