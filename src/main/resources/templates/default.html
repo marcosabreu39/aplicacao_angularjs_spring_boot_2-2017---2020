@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset=utf-8>
+<meta http-equiv="Content-Language" content="pt-br">
+
+<title>Agenda com Angular, Spring e Hibernate</title>
+
+<!-- Jquery -->
+	<script type="text/javascript" charset="utf-8" src="jquery/jquery-3.2.1.min.js"></script>
+
+<!-- Bootstrap -->
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/custom.css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Angularjs --> 	
+	<script type="text/javascript" charset="utf-8" src="javascript/angular/angular.js"></script>    
+    <script type="text/javascript" charset="utf-8" src="javascript/angular-route/angular-route.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascript/angular-messages/angular-messages.js"></script>    
+    <script type="text/javascript" charset="utf-8" src="javascript/app.js"></script>  
+    <script type="text/javascript" charset="utf-8" src="javascript/services/UserService.js"></script>      
+    <script type="text/javascript" charset="utf-8" src="javascript/controllers/HomeCtrl.js"></script>
+    <script type="text/javascript" charset="utf-8" src="javascript/controllers/CadUserCtrl.js"></script>
+    
+<!--     <base href="/"> -->
+            
+</head>
+
+<body>
+
+<div class="container">
+      
+<div ng-include="'partials/parts/header.html'"></div>
+
+<div class="row" style="min-height: 520px;">
+
+<div ng-include="'partials/parts/navbar.html'"></div>
+    
+    <ng-view></ng-view>
+
+</div>
+
+<div id="footer" class="row">
+	
+<div ng-include="'partials/parts/footer.html'"></div>	        
+
+</div>
+
+</div>
+
+</body>
+
+</html>
