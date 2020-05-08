@@ -150,3 +150,15 @@ div.error-messages {
 .form-error .ng-invalid {
 	border: 1px solid #B22222;
 }
+
+.ativo {
+  color: #cabb6d;
+  background-color: #365233;
+}
+
+footer {
+  position: fixed !important;
+  height: 100px !important;
+  bottom: 0 !important;
+  width: 100% !important;
+}
