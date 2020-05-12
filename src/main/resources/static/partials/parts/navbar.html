@@ -1,11 +1,11 @@
-<nav class="navbar-expand-sm navbar navbar-dark custom">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar  navbar-expand-sm navbar-dark custom">
+    <a class="navbar-brand" href="#"><img src="images/java_js.png" class="logo-navbar"></a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="{{classHome}}">
                 <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="{{classCadastro}}">
                 <a class="nav-link" href="#cadastro">Cadastro</a>
             </li>
             <li class="nav-item dropdown">
@@ -21,3 +21,6 @@
         </ul>
     </div>
 </nav>
+<div class="{{alertClass}}" role="alert">
+    {{mensagem}}
+</div>

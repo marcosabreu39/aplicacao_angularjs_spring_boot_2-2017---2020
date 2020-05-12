@@ -1,14 +1,14 @@
-.container {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,e5e5e5+100;White+3D */
-    background: #ffffff;
+.background {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f5fff9+0,ddfbe8+13,acf2c2+100 */
+    background: #f5fff9;
     /* Old browsers */
-    background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -moz-linear-gradient(top, #f5fff9 0%, #ddfbe8 13%, #acf2c2 100%);
     /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background: -webkit-linear-gradient(top, #f5fff9 0%, #ddfbe8 13%, #acf2c2 100%);
     /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    background: linear-gradient(to bottom, #f5fff9 0%, #ddfbe8 13%, #acf2c2 100%);
     /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f5fff9', endColorstr='#acf2c2', GradientType=0);
     /* IE6-9 */
 }
 
@@ -81,4 +81,61 @@ div.error-messages {
 .submenu:hover {
     color: #cabb6d !important;
     background-color: #365233;
+}
+
+.logo {
+    margin: 0 auto;
+    max-height: 300px;
+    background-color: white;
+    border: 5px solid #438e4f;
+    border-radius: 20%;
+}
+
+.logo-navbar {
+    margin: 0 auto;
+    max-height: 45px;
+    background-color: white;
+    border: 5px solid #438e4f;
+    border-radius: 20%;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.fieldset {
+    margin: 0 auto;
+    width: 85%;
+    height: 100%;
+    background-color: #9ACD32;
+    border-radius: 10px;
+    border: 5px solid #438e4f !important;
+    position: relative;
+}
+
+.legend {
+    color: white;
+    background-color: #438e4f;
+    border-radius: 10px;
+    border: 1px solid #365233 !important;
+}
+
+.alert {
+    text-align: center;
+    font-size: large;
+}
+
+.titulo {
+    /* color: #cabb6d; */
+    color: whitesmoke;
+    text-shadow: 1px 1px 2px #365233, 1px -1px 2px #365233, -1px 1px 2px #365233, -1px -1px 2px #365233;
+}
+
+.he {
+    position: inherit;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
 }
