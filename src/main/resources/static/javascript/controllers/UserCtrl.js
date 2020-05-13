@@ -2,7 +2,7 @@
  * 
  */
 
-angular.module('myApp').controller('UserCtrl', ['$scope', '$rootScope', 'pagina', 'UserService', function($scope, $rootScope, pagina, UserService) {
+angular.module('myApp').controller('UserCtrl', ['$scope', '$rootScope', '$filter', 'pagina', 'UserService', function($scope, $rootScope, $filter, pagina, UserService) {
 
     $rootScope.mensagem = "Bem vindo à página de cadastro de usuários";
 
@@ -20,7 +20,7 @@ angular.module('myApp').controller('UserCtrl', ['$scope', '$rootScope', 'pagina'
         $scope.submitted = true;
 
         if (formName.$valid) {
-
+        	$scope.usuario.dataCadastro = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm:ss');
             UserService.saveUser($scope.usuario)
                 .then(function success(response) {
                         $rootScope.mensagem = 'Usuário cadastrado com sucesso!';
@@ -41,12 +41,12 @@ angular.module('myApp').controller('UserCtrl', ['$scope', '$rootScope', 'pagina'
 
                             });
 
-                            $rootScope.mensagem = 'Erro ao tentar adicionar o usuário!'
+                            $rootScope.mensagem = 'Erro ao tentar cadastrar o usuário!'
                             $rootScope.nivelAlerta('danger');
 
                         } else {
 
-                            $rootScope.mensagem = 'Erro ao tentar adicionar o usuário!!';
+                            $rootScope.mensagem = 'Erro ao tentar cadastrar o usuário!!';
                             $rootScope.nivelAlerta('danger');
                         }
                         /*$scope.mensagem = '';*/

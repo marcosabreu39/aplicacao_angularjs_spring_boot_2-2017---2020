@@ -36,10 +36,12 @@ public class Usuario implements Serializable {
 
 	@Column(nullable = false, unique = true)	
 	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")		
+	@UniqueEmail
 	private String email;
 
 	@Column(unique = true, nullable = false)	
 	@Size(min = 4, max = 12, message = "Mínimo de 4 e máximo de 12 caracteres.")
+	@UniqueLogin
 	private String login;
 
 	@Column(nullable = false)
