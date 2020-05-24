@@ -19,12 +19,26 @@ angular.module('myApp').config(function($routeProvider, $locationProvider) {
 
     $routeProvider.when('/cadastro', {
         templateUrl: 'partials/public/cadastro-user.html',
-        controller: 'UserCtrl',
+        controller: 'CadUserCtrl',
         resolve: {
             pagina: function() {
                 return 'cadastro';
             }
         }
+    });
+
+    $routeProvider.when('/login', {
+        templateUrl: 'partials/public/login.html',
+        controller: 'LoginCtrl',
+        resolve: {
+            pagina: function() {
+                return 'login';
+            }
+        }
+    });
+
+    $routeProvider.when('/semSessao', {
+        controller: 'SessaoCtrl',
     });
 
     $routeProvider.otherwise({

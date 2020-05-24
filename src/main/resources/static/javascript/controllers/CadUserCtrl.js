@@ -2,7 +2,7 @@
  * 
  */
 
-angular.module('myApp').controller('UserCtrl', ['$scope', '$rootScope', '$filter', 'pagina', 'UserService', function($scope, $rootScope, $filter, pagina, UserService) {
+angular.module('myApp').controller('CadUserCtrl', ['$scope', '$rootScope', '$filter', 'pagina', 'UserService', function($scope, $rootScope, $filter, pagina, UserService) {
 
     $rootScope.mensagem = "Bem vindo à página de cadastro de usuários";
 
@@ -20,7 +20,7 @@ angular.module('myApp').controller('UserCtrl', ['$scope', '$rootScope', '$filter
         $scope.submitted = true;
 
         if (formName.$valid) {
-        	$scope.usuario.dataCadastro = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm:ss');
+            $scope.usuario.dataCadastro = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm:ss');
             UserService.saveUser($scope.usuario)
                 .then(function success(response) {
                         $rootScope.mensagem = 'Usuário cadastrado com sucesso!';

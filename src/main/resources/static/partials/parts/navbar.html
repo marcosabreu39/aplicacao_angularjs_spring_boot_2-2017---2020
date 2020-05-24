@@ -5,10 +5,13 @@
             <li class="{{classHome}}">
                 <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="{{classCadastro}}">
+            <li ng-if="logado == false" class="{{classCadastro}}">
                 <a class="nav-link" href="#cadastro">Cadastro</a>
             </li>
-            <li class="nav-item dropdown">
+            <li ng-if="logado == false" class="{{classLogin}}">
+                <a class="nav-link" href="#login">Login</a>
+            </li>
+            <li ng-if="logado == true" class="{{classContatos}}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Contatos
                 </a>
@@ -16,6 +19,18 @@
                     <a class="dropdown-item submenu" href="#">Novo Contato</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item submenu" href="#">Visualizar Contatos</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li ng-if="logado == true" class="{{classLogado}}">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               {{loginLogado}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item submenu" href="#">Dados</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item submenu" ng-click="logout(loginLogado)" href="">Sair</a>
                 </div>
             </li>
         </ul>
