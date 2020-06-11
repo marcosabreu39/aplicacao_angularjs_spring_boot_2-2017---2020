@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.agenda3.facade.UsuarioFacade;
 import br.agenda3.model.Privilegio;
 import br.agenda3.model.Usuario;
+import br.agenda3.util.Utils;
 
 @RestController
 public class UserController {
@@ -38,6 +39,14 @@ public class UserController {
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	@PostMapping(value = "/usuario")
 	public ResponseEntity<Object> saveUser(@Valid Usuario usuario, BindingResult br) {
@@ -86,7 +95,7 @@ public class UserController {
 		final Map<String, String> dadosUser = new HashMap<>();
 
 		try {
-			this.usuario = usuarioFacade.obterUsuario(usuario.getLogin());
+			setUsuario(usuarioFacade.obterUsuario(usuario.getLogin()));
 
 			dadosUser.put("id", this.usuario.getId().toString());
 			dadosUser.put("nome", this.usuario.getNome());
@@ -110,13 +119,15 @@ public class UserController {
 		ResponseEntity<Object> retorno = null;
 		try {
 			if (usuario.getSenha().equals(senhaBanco)) {
-				usuarioFacade.atualizarUsuario(usuario);
+				setUsuario(Utils.atualizarObjetoUsuario(this.usuario, usuario));
+
+				usuarioFacade.atualizarUsuario(getUsuario());
 
 				retorno = new ResponseEntity<>(HttpStatus.OK);
 			} else {
 				usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
-
-				usuarioFacade.atualizarUsuario(usuario);
+				setUsuario(Utils.atualizarObjetoUsuario(this.usuario, usuario));
+				usuarioFacade.atualizarUsuario(getUsuario());
 
 				retorno = new ResponseEntity<>(HttpStatus.OK);
 			}
@@ -126,5 +137,7 @@ public class UserController {
 		}
 		return retorno;
 	}
+
+	
 
 }

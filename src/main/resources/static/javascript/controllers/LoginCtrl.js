@@ -36,7 +36,20 @@ angular.module('myApp').controller('LoginCtrl', ['$scope', '$rootScope', '$locat
                     },
                     function error(response) {
                         if (response.status == 401) {
-                            var mensagem = { "login": "Usuário ou senha inválidos!", "senha": "Usuário ou senha inválidos!" }
+                            var mensagem = { "login": "Usuário ou(e) senha incorretos!", "senha": "Usuário ou(e) senha incorretos!" }
+                            $scope.errorMessage = mensagem;
+
+                            angular.forEach($scope.errorMessage, function(message, attribute) {
+
+                                formName[attribute].$setValidity('errorServer', false);
+
+                            });
+
+                            $rootScope.mensagem = 'Erro no login do usuário!'
+                            $rootScope.nivelAlerta('danger');
+
+                        } else if (response.status == 403) {
+                            var mensagem = { "login": "Usuário ou(e) senha inválidos!", "senha": "Usuário ou(e) senha inválidos" }
                             $scope.errorMessage = mensagem;
 
                             angular.forEach($scope.errorMessage, function(message, attribute) {

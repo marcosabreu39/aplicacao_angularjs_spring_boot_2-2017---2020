@@ -1,7 +1,5 @@
 angular.module('myApp').run(function($rootScope, $location, UserService) {
 
-    // $rootScope.usuario = { login: '' };
-
     $rootScope.token = '';
 
     $rootScope.header = {};
@@ -68,27 +66,20 @@ angular.module('myApp').run(function($rootScope, $location, UserService) {
         formName[attribute].$setValidity('errorServer', true);
     }
 
-    /* $rootScope.logout = function(login) {
-        $rootScope.usuario.login = login;
-        UserService.logout($rootScope.usuario).then(function success(response) {
-                $rootScope.loginLogado = '';
-                // $rootScope.usuario = null;
-                $rootScope.logado = false;
-                $rootScope.mensagem = 'Logout realizado com sucesso';
-                $rootScope.nivelAlerta('warning');
-                // $location.path("/home");
-            },
-            function error(response) {
-                if (response.status == 409) {
-                    $rootScope.loginLogado = '';
-                    $rootScope.usuario = null;
-                    $rootScope.logado = false;
-                    $rootScope.mensagem = 'Logout realizado, sessão finalizada';
-                    $rootScope.nivelAlerta('warning');
-                    $location.path("/");
-                }
-            });
-    } */
+    $rootScope.logout = function(login) {
+        var login = login;
+        if (angular.equals(login, $rootScope.loginLogado)) {
+            $rootScope.loginLogado = '';
+            $rootScope.logado = false;
+            $rootScope.token = '';
+            $rootScope.mensagem = 'Logout realizado com sucesso!';
+            $location("/home");
+            $rootScope.nivelAlerta('info');
+        } else {
+            $rootScope.mensagem = 'Erro ao tentar realizar logout!';
+            $rootScope.nivelAlerta('danger');
+        }
+    }
 
 
 
