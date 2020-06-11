@@ -1,0 +1,49 @@
+<div id="content">
+
+    <fieldset class="form-group fieldset">
+
+        <legend class="scheduler-border legend">
+            <h6>Página de login de usuários</h6>
+        </legend>
+        <form name="formLogin" novalidate method="post" ng-class="{'form-error':submitted}" ng-submit="login(formLogin)">
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Login:</label>
+                <div class="col-sm-5">
+                    <input type="text" name="login" required ng-model="usuario.login" ng-change="resetServerValidation(formLogin,'login')" class="form-control" placeholder="Insira o seu login entre 4 e 12 caracteres." ng-minlength="4" ng-maxlength="12" />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formLogin.login.$error" ng-show="submitted && formLogin.login.$invalid" class="error-messages" role="alert" ng-if="formLogin.login.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 4 caracteres.</div>
+                        <div ng-message="maxlength">No máximo 12 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.login}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Senha:</label>
+                <div class="col-sm-5">
+                    <input type="password" name="senha" required ng-model="usuario.senha" ng-change="resetServerValidation(formLogin,'senha')" class="form-control" placeholder="Insira sua senha com no mínimo 4 caracteres." ng-minlength="4" />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formLogin.senha.$error" ng-show="submitted && formLogin.senha.$invalid" class="error-messages" role="alert" ng-if="formLogin.senha.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 4 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.senha}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;"></label>
+                <div class="col-sm-5">
+                    <button type="submit" class="btn btn-default" id="submit" ng-submit="login(formLogin)">Acessar</button>
+                </div>
+            </div>
+
+        </form>
+
+    </fieldset>
+</div>

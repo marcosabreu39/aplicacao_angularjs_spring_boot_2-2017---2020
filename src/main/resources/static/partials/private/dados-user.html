@@ -1,0 +1,95 @@
+<div id="content">
+
+    <fieldset class="form-group fieldset">
+
+        <legend class="scheduler-border legend">
+            <h6>Página de dados cadastrais do usuário</h6>
+        </legend>
+        <form name="formDadosUser" novalidate method="post" ng-class="{'form-error':submitted}" ng-submit="atualizarUser(formDadosUser)">
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Nome:</label>
+                <div class="col-sm-5">
+                    <input ng-disabled="ativo" type="text" name="nome" required ng-model="usuario.nome" ng-change="resetServerValidation(formDadosUser,'nome')" class="form-control" placeholder="Insira o seu nome completo." ng-minlength="4" ng-maxlength="30" />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formDadosUser.nome.$error" ng-show="submitted && formDadosUser.nome.$invalid" class="error-messages" role="alert" ng-if="formDadosUser.nome.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 4 caracteres.</div>
+                        <div ng-message="maxlength">No máximo 30 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.nome}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">E-mail:</label>
+                <div class="col-sm-5">
+                    <input ng-disabled="ativo" type="email" name="email" required ng-model="usuario.email" ng-change="resetServerValidation(formDadosUser,'email')" class="form-control" placeholder="Insira o seu e-mail." />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formDadosUser.email.$error" ng-show="submitted && formDadosUser.email.$invalid" class="error-messages" role="alert" ng-if="formDadosUser.email.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="email">Insira um e-mail válido.</div>
+                        <div ng-message="errorServer">{{errorMessage.email}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Data Cadastro:</label>
+                <div class="col-sm-5">
+                    <input ng-disabled="true" type="text" ng-model="usuario.dataCadastro" name="dataCadastro" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Login:</label>
+                <div class="col-sm-5">
+                    <input ng-disabled="ativo" type="text" name="login" required ng-model="usuario.login" ng-change="resetServerValidation(formDadosUser,'login')" class="form-control" placeholder="Insira o seu login entre 4 e 12 caracteres." ng-minlength="4" ng-maxlength="12"
+                    />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formDadosUser.login.$error" ng-show="submitted && formDadosUser.login.$invalid" class="error-messages" role="alert" ng-if="formDadosUser.login.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 4 caracteres.</div>
+                        <div ng-message="maxlength">No máximo 12 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.login}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Senha:</label>
+                <div class="col-sm-5">
+                    <input ng-disabled="ativo" ng-click="resetSenha()" type="password" name="senha" required ng-model="usuario.senha" ng-change="resetServerValidation(formDadosUser,'senha')" class="form-control" placeholder="Insira sua senha com no mínimo 4 caracteres."
+                        ng-minlength="4" />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formDadosUser.senha.$error" ng-show="submitted && formDadosUser.senha.$invalid" class="error-messages" role="alert" ng-if="formDadosUser.senha.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 4 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.senha}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;"></label>
+                <div class="col-sm-2">
+                    <button ng-disabled="ativo" type="submit" class="btn btn-default btn-save" id="submit" ng-submit="atualizarUser(formDadosUser)">Salvar</button>
+                </div>
+                <div class="btn-group btn-group-toggle col-sm-3" data-toggle="button">
+                    <label for="option1" class="{{classVisualizar}}" ng-dblclick="defineInputAtivo('visualizar')">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Visualizar
+                    </label>
+                    <label for="option2" class="{{classAtualizar}}" ng-dblclick="defineInputAtivo('atualizar')">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Atualizar
+                      </label>
+                </div>
+            </div>
+
+        </form>
+
+    </fieldset>
+</div>

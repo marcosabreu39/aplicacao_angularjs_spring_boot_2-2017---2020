@@ -2,20 +2,30 @@ package br.agenda3.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.springframework.stereotype.Component;
-import br.agenda3.auxiliar.UniqueEmail;
-import br.agenda3.auxiliar.UniqueLogin;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.stereotype.Component;
+
+@CustomBeanValidator
 @Entity
 @Component
 public class Usuario implements Serializable {
@@ -26,7 +36,8 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = -8238587905744175289L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id_seq")
+	@SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", allocationSize = 1)
 	private Integer id;
 
 	@Column(nullable = false)
@@ -34,22 +45,32 @@ public class Usuario implements Serializable {
 	private String nome;
 
 	@Column(nullable = false, unique = true)
-	@UniqueEmail(message = "Esse e-mail já está cadastrado.")
-	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")		
+	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
 	private String email;
 
 	@Column(unique = true, nullable = false)
-	@UniqueLogin(message = "Esse login já está cadastrado.")
 	@Size(min = 4, max = 12, message = "Mínimo de 4 e máximo de 12 caracteres.")
 	private String login;
 
 	@Column(nullable = false)
-	@Size(min = 4, max = 10, message = "Mínimo de 4 e máximo de 10 caracteres.")
+	@Size(min = 4, message = "Mínimo de 4 caracteres.")
 	private String senha;
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date dataCadastro;
+
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Contato> contatos;
+
+	@ManyToMany
+	@JoinTable(name = "USUARIO_PRIVILEGIO", joinColumns = { @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID") }, 
+	inverseJoinColumns = { @JoinColumn(name = "PRIVILEGIO_ID", referencedColumnName = "ID") })
+	private Set<Privilegio> privilegios = new HashSet<>();
+
+	@Column
+	private boolean habilitado = true;
 
 	public Integer getId() {
 		return id;
@@ -58,7 +79,7 @@ public class Usuario implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -66,7 +87,7 @@ public class Usuario implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-		
+
 	public Date getDataCadastro() {
 		return dataCadastro;
 	}
@@ -74,7 +95,7 @@ public class Usuario implements Serializable {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -82,7 +103,7 @@ public class Usuario implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getLogin() {
 		return login;
 	}
@@ -90,7 +111,7 @@ public class Usuario implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -99,4 +120,27 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
+	}
+
+	public Set<Privilegio> getPrivilegios() {
+		return privilegios;
+	}
+
+	public void setPrivilegios(Set<Privilegio> privilegios) {
+		this.privilegios = privilegios;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
 }

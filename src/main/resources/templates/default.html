@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv="Content-Language" content="pt-br">
+
+    <title>Agenda Angular Spring Hibernate</title>
+
+    <!-- Bootstrap Jquery -->
+    <script type="text/javascript" charset="utf-8" src="jquery/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap css-->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom css -->
+    <link href="css/custom.css" rel="stylesheet">
+
+</head>
+
+<body class="background">
+
+    <div class="container-fluid">
+
+        <div ng-include="'partials/parts/header.html'"></div>
+
+        <div ng-include="'partials/parts/navbar.html'"></div>
+
+        <ng-view></ng-view>
+
+        <div ng-include="'partials/parts/footer.html'"></div>
+
+    </div>
+
+</body>
+
+<!-- Boostrap js -->
+<script type="text/javascript" charset="utf-8" src="bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Angularjs -->
+<script type="text/javascript" charset="utf-8" src="javascript/angular/angular.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/angular-route/angular-route.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/angular-messages/angular-messages.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/app.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/services/UserService.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/controllers/HomeCtrl.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/controllers/CadUserCtrl.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/custom/custom.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/global/global.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/controllers/LoginCtrl.js"></script>
+<script type="text/javascript" charset="utf-8" src="javascript/controllers/DadosUserCtrl.js"></script>
+
+</html>

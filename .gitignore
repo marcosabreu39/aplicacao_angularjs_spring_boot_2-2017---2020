@@ -1,1 +1,3 @@
 /target/
+src/main/java/br/agenda3/security/JWTLoginFilter.java
+src/main/java/br/agenda3/security/JWTAuthenticationFilter.java

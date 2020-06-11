@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"maven.view": "flat",
+		"maven.executable.path": "C:\\apache-maven-3.6.3\\bin\\mvn"
+	}
+}
