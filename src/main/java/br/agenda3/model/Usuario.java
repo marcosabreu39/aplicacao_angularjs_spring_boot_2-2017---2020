@@ -3,7 +3,9 @@ package br.agenda3.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,13 +20,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
+@CustomBeanValidator
 @Entity
 @Component
 public class Usuario implements Serializable {
@@ -45,16 +47,14 @@ public class Usuario implements Serializable {
 
 	@Column(nullable = false, unique = true)
 	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
-	@UniqueEmail
 	private String email;
 
 	@Column(unique = true, nullable = false)
 	@Size(min = 4, max = 12, message = "Mínimo de 4 e máximo de 12 caracteres.")
-	@UniqueLogin
 	private String login;
 
 	@Column(nullable = false)
-	@Size(min = 4, max = 10, message = "Mínimo de 4 e máximo de 10 caracteres.")
+	@Size(min = 4, message = "Mínimo de 4 caracteres.")
 	private String senha;
 
 	@Column(nullable = false)
@@ -66,8 +66,9 @@ public class Usuario implements Serializable {
 	private List<Contato> contatos;
 
 	@ManyToMany
-	@JoinTable(name = "USUARIO_PRIVILEGIO", joinColumns = @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "PRIVILEGIO_ID", referencedColumnName = "ID"))
-	private List<Privilegio> privilegios = new ArrayList<>();
+	@JoinTable(name = "USUARIO_PRIVILEGIO", joinColumns = { @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID") }, 
+	inverseJoinColumns = { @JoinColumn(name = "PRIVILEGIO_ID", referencedColumnName = "ID") })
+	private Set<Privilegio> privilegios = new HashSet<>();
 
 	@Column
 	private boolean habilitado = true;
@@ -128,11 +129,11 @@ public class Usuario implements Serializable {
 		this.contatos = contatos;
 	}
 
-	public List<Privilegio> getPrivilegios() {
+	public Set<Privilegio> getPrivilegios() {
 		return privilegios;
 	}
 
-	public void setPrivilegios(List<Privilegio> privilegios) {
+	public void setPrivilegios(Set<Privilegio> privilegios) {
 		this.privilegios = privilegios;
 	}
 
@@ -142,6 +143,76 @@ public class Usuario implements Serializable {
 
 	public void setHabilitado(boolean habilitado) {
 		this.habilitado = habilitado;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((contatos == null) ? 0 : contatos.hashCode());
+		result = prime * result + ((dataCadastro == null) ? 0 : dataCadastro.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + (habilitado ? 1231 : 1237);
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((privilegios == null) ? 0 : privilegios.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (contatos == null) {
+			if (other.contatos != null)
+				return false;
+		} else if (!contatos.equals(other.contatos))
+			return false;
+		if (dataCadastro == null) {
+			if (other.dataCadastro != null)
+				return false;
+		} else if (!dataCadastro.equals(other.dataCadastro))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (habilitado != other.habilitado)
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (privilegios == null) {
+			if (other.privilegios != null)
+				return false;
+		} else if (!privilegios.equals(other.privilegios))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		return true;
 	}
 
 }

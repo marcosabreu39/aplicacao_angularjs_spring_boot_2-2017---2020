@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -13,14 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import br.agenda3.facade.UsuarioFacade;
 import br.agenda3.model.Privilegio;
@@ -38,8 +34,8 @@ public class UserController {
 	@Autowired
 	Privilegio privilegio;
 
-	// @Autowired
-	// private HttpSession session;
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
@@ -53,6 +49,7 @@ public class UserController {
 		try {
 			if (br.hasErrors()) {
 				final List<FieldError> errors = br.getFieldErrors();
+
 				for (final FieldError error : errors) {
 
 					erros.put(error.getField(), error.getDefaultMessage());
@@ -63,6 +60,7 @@ public class UserController {
 				privilegio.setId(2);
 				privilegio.setTipo("user");
 				usuario.getPrivilegios().add(privilegio);
+				usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
 				usuarioFacade.adicionarUsuario(usuario);
 
 				retorno = new ResponseEntity<>(HttpStatus.CREATED);
@@ -75,96 +73,58 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/usuarioLogon")
+	/* Toda a validação é feita via Spring Security e JWT */
+	@PostMapping(value = "/usuarioLogon")
 	public void login() {
+	}
 
-		// ResponseEntity<Object> retorno = null;
+	@PostMapping(value = "/usuarioDados")
+	public ResponseEntity<Object> obterDadosUser(Usuario usuario) {
 
-		// this.usuario = usuario;
+		ResponseEntity<Object> retorno = null;
 
-		// final Map<String, String> erros = new HashMap<>();
+		final Map<String, String> dadosUser = new HashMap<>();
 
 		try {
-			/* if (usuarioFacade.usuarioJaCadastrado(this.usuario.getLogin(), this.usuario.getSenha())) {
+			this.usuario = usuarioFacade.obterUsuario(usuario.getLogin());
 
-				session.setAttribute("usuarioLogado", this.usuario);
+			dadosUser.put("id", this.usuario.getId().toString());
+			dadosUser.put("nome", this.usuario.getNome());
+			dadosUser.put("email", this.usuario.getEmail());
+			dadosUser.put("dataCadastro", this.usuario.getDataCadastro().toString());
+			dadosUser.put("login", this.usuario.getLogin());
+			dadosUser.put("senha", this.usuario.getSenha());
+
+			retorno = new ResponseEntity<>(dadosUser, HttpStatus.OK);
+
+		} catch (final Exception e) {
+			LOGGER.error("Ocorreu erro ao tentar obter os dados do usuário!", e);
+		}
+		return retorno;
+
+	}
+
+	/* Os erros de validação são enviados diretamente para o frontend via json */
+	@PutMapping("/usuario/id")
+	public ResponseEntity<Object> atualizarUser(@Valid Usuario usuario, String senhaBanco, BindingResult br) {
+		ResponseEntity<Object> retorno = null;
+		try {
+			if (usuario.getSenha().equals(senhaBanco)) {
+				usuarioFacade.atualizarUsuario(usuario);
 
 				retorno = new ResponseEntity<>(HttpStatus.OK);
 			} else {
+				usuario.setSenha(bCryptPasswordEncoder.encode(usuario.getSenha()));
 
-				erros.put("login", "Usuário ou senha inválidos!");
-				erros.put("senha", "Usuário ou senha inválidos!");
+				usuarioFacade.atualizarUsuario(usuario);
 
-				retorno = new ResponseEntity<>(erros, HttpStatus.FORBIDDEN);
-
-			} */
-
-		} catch (final Exception e) {
-			LOGGER.error("Ocorreu erro ao processar o usuário!", e);
-		}
-		// return retorno;
-
-	}
-
-	@PostMapping(value = "/usuarioLogout")
-	public ResponseEntity<Object> logout(final Usuario usuario, HttpSession session, HttpServletRequest request) {
-
-		this.usuario = usuario;
-
-		final Map<String, String> erros = new HashMap<>();
-		// session = Utils.obterSessao();
-		session = request.getSession(false);
-
-		if (session != null) {
-			final Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-
-			if (usuarioLogado != null && !usuarioLogado.equals("")) {
-
-				if (usuario.getLogin().equals(usuarioLogado.getLogin())) {
-					// session = Utils.obterSessao();
-					session.removeAttribute("usuarioLogado");
-					// session.invalidate();
-					// detalhesUsuario.setUsuario(null);
-					return new ResponseEntity<>(HttpStatus.CREATED);
-				} else {
-					return new ResponseEntity<>(erros, HttpStatus.CONFLICT);
-				}
-			} else {
-				// session = Utils.obterSessao();
-				// session.invalidate();
-				return new ResponseEntity<>(erros, HttpStatus.CONFLICT);
+				retorno = new ResponseEntity<>(HttpStatus.OK);
 			}
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu erro ao obter o usuário!", e);
+			retorno = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<>(erros, HttpStatus.CONFLICT);
-
+		return retorno;
 	}
 
-	@GetMapping(value = "/usuarioNaSessao")
-	public ResponseEntity<Object> recuperarLogin(final HttpSession session) {
-
-		// session = Utils.obterSessao();
-		usuario = (Usuario) session.getAttribute("usuarioLogado");
-
-		if (null != usuario  && !"".equals(usuario)) {
-			final Map<String, String> u = new HashMap<>();
-			u.put("loginLogado", usuario.getLogin());
-
-			return new ResponseEntity<Object>(u, HttpStatus.OK);
-
-		} else {
-			final Map<String, String> objson = new HashMap<>();
-
-			objson.put("logado", "false");
-
-			return new ResponseEntity<Object>(objson, HttpStatus.NOT_FOUND);
-		}
-
-	}
-
-	@GetMapping(value = "/semSessao")
-	public RedirectView atualizarSessao() {
-
-		return new RedirectView("default.html");
-
-	}
 }

@@ -37,9 +37,19 @@ angular.module('myApp').config(function($routeProvider, $locationProvider) {
         }
     });
 
-    $routeProvider.when('/semSessao', {
-        controller: 'SessaoCtrl',
+    $routeProvider.when('/dados', {
+        templateUrl: 'partials/private/dados-user.html',
+        controller: 'DadosUserCtrl',
+        resolve: {
+            pagina: function() {
+                return 'dados';
+            }
+        }
     });
+
+    /* $routeProvider.when('/semSessao', {
+        controller: 'SessaoCtrl',
+    }); */
 
     $routeProvider.otherwise({
         redirectTo: '/home'

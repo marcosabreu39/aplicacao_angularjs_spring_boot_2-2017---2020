@@ -16,23 +16,11 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioFacadeImpl.class);
 
-//	@Override
-//	public boolean jaCadastrado(String nomeAtributo, String atributo) {
-//		boolean existe = false;
-//		try {
-//			existe = usuarioRepository.find(nomeAtributo, atributo).isEmpty();
-//		} catch (Exception e) {
-//			LOGGER.error("Ocorreu um erro ao verificar o atributo!", e);
-//		}
-//
-//		return existe;
-//	}
-
 	@Override
 	public boolean loginJaCadastrado(String login) {
 		boolean existe = false;
 		try {
-			existe = !usuarioRepository.checarLogin(login).isEmpty();
+			existe = !usuarioRepository.obterLogin(login).isEmpty();
 		} catch (Exception e) {
 			LOGGER.error("Ocorreu um erro ao verificar o login!", e);
 		}
@@ -41,15 +29,37 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 	}
 
 	@Override
-	public boolean emailJaCadastrado(String login) {
+	public boolean emailJaCadastrado(String email) {
 		boolean existe = false;
 		try {
-			existe = !usuarioRepository.checarEmail(login).isEmpty();
+			existe = !usuarioRepository.checarEmail(email).isEmpty();
 		} catch (Exception e) {
 			LOGGER.error("Ocorreu um erro ao verificar o e-mail!", e);
 		}
 
 		return existe;
+	}
+
+	@Override
+	public boolean emailJaCadastradoParaOutroId(Integer id, String email) {
+		boolean retorno = false;
+		try {
+			retorno = !usuarioRepository.checarEmail(id, email).isEmpty();
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu um erro ao verificar o e-mail!", e);
+		}
+		return retorno;
+	}
+
+	@Override
+	public boolean loginJaCadastradoParaOutroId(Integer id, String login) {
+		boolean retorno = false;
+		try {
+			retorno = !usuarioRepository.checarLogin(id, login).isEmpty();
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu um erro ao verificar o login!", e);
+		}
+		return retorno;
 	}
 
 	@Override
@@ -72,6 +82,26 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 		}
 
 		return existe;
+	}
+
+	@Override
+	public Usuario obterUsuario(String login) {
+		Usuario usuario = null;
+		try {
+			usuario = usuarioRepository.obterLogin(login).get(0);
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu um erro ao tentar obter o usuário", e);
+		}
+		return usuario;
+	}
+
+	@Override
+	public void atualizarUsuario(Usuario usuario) {
+		try {
+			usuarioRepository.save(usuario);
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu erro ao tentar atualizar o usuário!", e);
+		}
 	}
 
 }

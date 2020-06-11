@@ -2,7 +2,7 @@
  * 
  */
 
-angular.module('myApp').controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'pagina', 'UserService', 'CryptoService', function($scope, $rootScope, $location, pagina, UserService, CryptoService) {
+angular.module('myApp').controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'pagina', 'UserService', function($scope, $rootScope, $location, pagina, UserService) {
 
     $rootScope.mensagem = "Bem vindo à página de login de usuários";
 
@@ -20,12 +20,11 @@ angular.module('myApp').controller('LoginCtrl', ['$scope', '$rootScope', '$locat
         $scope.submitted = true;
 
         if (formName.$valid) {
-            $scope.usuario.senha = CryptoService.cfCryptoHttpInterceptor.plugin.encode($scope.usuario.senha, cfCryptoHttpInterceptor.base64Key);
             UserService.login($scope.usuario)
                 .then(function success(response) {
                         if (response.status == 200) {
-                            var token = this;
-                            token = response.headers('Authorization');
+                            $rootScope.token = response.headers('Authorization');
+                            $rootScope.header = { 'Authorization': $rootScope.token };
                             $rootScope.nivelAlerta('success');
                             $rootScope.loginLogado = $scope.usuario.login;
                             $scope.usuario = null;
@@ -36,10 +35,9 @@ angular.module('myApp').controller('LoginCtrl', ['$scope', '$rootScope', '$locat
                         }
                     },
                     function error(response) {
-                        if (response.status == 403) {
-                            var errorMessageJson = this;
-                            errorMessageJson = response.data;
-                            $scope.errorMessage = angular.fromJson(errorMessageJson);
+                        if (response.status == 401) {
+                            var mensagem = { "login": "Usuário ou senha inválidos!", "senha": "Usuário ou senha inválidos!" }
+                            $scope.errorMessage = mensagem;
 
                             angular.forEach($scope.errorMessage, function(message, attribute) {
 
@@ -68,10 +66,5 @@ angular.module('myApp').controller('LoginCtrl', ['$scope', '$rootScope', '$locat
         }
 
     }
-
-
-
-
-
 
 }]);

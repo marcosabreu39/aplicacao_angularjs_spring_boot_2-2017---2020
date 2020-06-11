@@ -25,13 +25,12 @@
             <div class="form-group row">
                 <label class="col-sm-2 control-label" style="text-align: right;">Senha:</label>
                 <div class="col-sm-5">
-                    <input type="password" name="senha" required ng-model="usuario.senha" ng-change="resetServerValidation(formLogin,'senha')" class="form-control" placeholder="Insira sua senha entre 4 e 10 caracteres." ng-minlength="4" ng-maxlength="10" />
+                    <input type="password" name="senha" required ng-model="usuario.senha" ng-change="resetServerValidation(formLogin,'senha')" class="form-control" placeholder="Insira sua senha com no mínimo 4 caracteres." ng-minlength="4" />
                 </div>
                 <div class="col-sm-4">
                     <div ng-messages="formLogin.senha.$error" ng-show="submitted && formLogin.senha.$invalid" class="error-messages" role="alert" ng-if="formLogin.senha.$dirty">
                         <div ng-message="required">Preenchimento obrigatório.</div>
                         <div ng-message="minlength">No mínimo 4 caracteres.</div>
-                        <div ng-message="maxlength">No máximo 10 caracteres.</div>
                         <div ng-message="errorServer">{{errorMessage.senha}}</div>
                     </div>
                 </div>

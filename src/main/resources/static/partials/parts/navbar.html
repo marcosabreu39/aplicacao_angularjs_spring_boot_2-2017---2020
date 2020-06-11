@@ -23,12 +23,12 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li ng-if="logado == true" class="{{classLogado}}">
+            <li ng-if="logado == true" class="{{classDados}}">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                {{loginLogado}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item submenu" href="#">Dados</a>
+                    <a class="dropdown-item submenu" href="#dados">Dados</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item submenu" ng-click="logout(loginLogado)" href="">Sair</a>
                 </div>

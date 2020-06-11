@@ -21,13 +21,15 @@ angular.module('myApp').controller('CadUserCtrl', ['$scope', '$rootScope', '$fil
 
         if (formName.$valid) {
             $scope.usuario.dataCadastro = $filter('date')(new Date(), 'dd/MM/yyyy HH:mm:ss');
+
             UserService.saveUser($scope.usuario)
                 .then(function success(response) {
-                        $rootScope.mensagem = 'Usuário cadastrado com sucesso!';
-                        $rootScope.nivelAlerta('success');
-                        $scope.usuario = null;
-                        $scope.submitted = false;
-
+                        if (response.status == 201) {
+                            $rootScope.mensagem = 'Usuário cadastrado com sucesso!';
+                            $rootScope.nivelAlerta('success');
+                            $scope.submitted = false;
+                            $scope.usuario = null;
+                        }
                     },
                     function error(response) {
                         if (response.status == 409) {
@@ -46,10 +48,10 @@ angular.module('myApp').controller('CadUserCtrl', ['$scope', '$rootScope', '$fil
 
                         } else {
 
+                            var retorno = response.data;
                             $rootScope.mensagem = 'Erro ao tentar cadastrar o usuário!!';
                             $rootScope.nivelAlerta('danger');
                         }
-                        /*$scope.mensagem = '';*/
 
                     });
 
@@ -69,10 +71,5 @@ angular.module('myApp').controller('CadUserCtrl', ['$scope', '$rootScope', '$fil
         }
 
     }
-
-
-
-
-
 
 }]);

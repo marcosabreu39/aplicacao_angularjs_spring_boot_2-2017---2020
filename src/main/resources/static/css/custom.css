@@ -24,22 +24,35 @@ legend.scheduler-border {
     font-size: 14px;
 }
 
-button.btn-default {
-    background-color: #438e4f;
-    border-color: #365233;
-    color: white;
+.custom-radio,
+button.btn-default,
+button.btn-secondary {
+    background-color: #438e4f !important;
+    border-color: #365233 !important;
+    color: white !important;
 }
 
-button.btn-default:hover {
-    background-color: #365233;
-    border-color: #365233;
-    color: #cabb6d;
+.custom-radio:hover,
+button.btn-default:hover,
+button.btn-secondary:hover {
+    background-color: #365233 !important;
+    border-color: #365233 !important;
+    color: #cabb6d !important;
 }
 
-button.btn-default:focus {
-    background-color: #438e4f;
-    border-color: #365233;
-    color: white;
+.custom-radio:focus,
+button.btn-default:focus,
+button.btn-secondary:focus {
+    background-color: #438e4f !important;
+    border-color: #365233 !important;
+    color: white !important;
+}
+
+.btn-save:disabled,
+.btn-save:disabled:hover {
+    background-color: #438e4f !important;
+    border-color: #acf2c2 !important;
+    color: #acf2c2 !important;
 }
 
 div.error-messages {
@@ -55,7 +68,7 @@ div.error-messages {
 
 .active {
     color: #cabb6d !important;
-    background-color: #365233;
+    background-color: #365233 !important;
 }
 
 .custom {
@@ -124,7 +137,6 @@ div.error-messages {
 }
 
 .titulo {
-    /* color: #cabb6d; */
     color: whitesmoke;
     text-shadow: 1px 1px 2px #365233, 1px -1px 2px #365233, -1px 1px 2px #365233, -1px -1px 2px #365233;
 }

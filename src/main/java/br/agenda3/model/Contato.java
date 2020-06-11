@@ -39,7 +39,6 @@ public class Contato implements Serializable {
 
 	@Column(nullable = false, unique = true)
 	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
-	@UniqueEmail
 	private String email;
 
 	@Column(nullable = true)
