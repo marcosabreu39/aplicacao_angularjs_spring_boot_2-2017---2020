@@ -1,5 +1,6 @@
 package br.agenda3.util;
 
+import br.agenda3.model.Contato;
 import br.agenda3.model.Usuario;
 
 public class Utils {
@@ -21,4 +22,18 @@ public class Utils {
         return usuarioParaAtualizar;
     }
 
+    public static Contato prepararObjetoContato(Contato contatoParaPersistir, Contato contato) {
+        if (null != contato.getId() && !"".equals(contato.getId()))
+            contatoParaPersistir.setId(contato.getId());
+        if (null != contato.getNome() && !"".equals(contato.getNome()))
+            contatoParaPersistir.setNome(contato.getNome());
+        if (null != contato.getEmail() && !"".equals(contato.getEmail()))
+            contatoParaPersistir.setEmail(contato.getEmail());
+        if (null != contato.getEndereco() && !"".equals(contato.getEndereco()))
+            contatoParaPersistir.setEndereco(contato.getEndereco());
+        if (null != contato.getObservacao() && !"".equals(contato.getObservacao()))
+            contatoParaPersistir.setObservacao(contato.getObservacao());
+
+        return contatoParaPersistir;
+    }
 }

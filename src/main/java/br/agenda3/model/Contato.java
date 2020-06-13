@@ -34,9 +34,10 @@ public class Contato implements Serializable {
 	private Usuario usuario;
 
 	@Column(nullable = false)
-	@Size(min = 4, max = 30, message = "Mínimo de 4 e máximo de 30 caracteres.")
+	@Size(min = 4, max = 40, message = "Mínimo de 4 e máximo de 40 caracteres.")
 	private String nome;
 
+	@UniqueAttribute(message = "Este e-mail já está cadastrado!")
 	@Column(nullable = false, unique = true)
 	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
 	private String email;
@@ -46,7 +47,7 @@ public class Contato implements Serializable {
 	private String endereco;
 
 	@Column(nullable = true)
-	@Size(max = 60, message = "Máximo de 60 caracteres.")
+	@Size(max = 200, message = "Máximo de 200 caracteres.")
 	private String observacao;
 
 	public Integer getId() {
@@ -55,6 +56,14 @@ public class Contato implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getNome() {
