@@ -47,14 +47,18 @@ angular.module('myApp').config(function($routeProvider, $locationProvider) {
         }
     });
 
-    /* $routeProvider.when('/semSessao', {
-        controller: 'SessaoCtrl',
-    }); */
+    $routeProvider.when('/novoContato', {
+        templateUrl: 'partials/private/cadastro-contato.html',
+        controller: 'CadContatoCtrl',
+        resolve: {
+            pagina: function() {
+                return 'contatos';
+            }
+        }
+    });
 
     $routeProvider.otherwise({
         redirectTo: '/home'
     });
-
-
 
 });

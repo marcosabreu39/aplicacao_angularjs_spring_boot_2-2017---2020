@@ -1,35 +1,24 @@
-/**
- * 
- */
-angular.module('myApp').service('UserService', ['$http', function($http) {
+angular.module('myApp').service('ContatoService', ['$http', function($http) {
 
-    this.saveUser = function(usuario) {
+    this.saveContato = function(contato, loginLogado, header) {
         return $http({
             method: 'POST',
-            url: 'usuario',
-            params: { nome: usuario.nome, email: usuario.email, login: usuario.login, senha: usuario.senha, dataCadastro: usuario.dataCadastro },
-            headers: 'Accept:application/json'
+            url: 'contato',
+            params: { nome: contato.nome, email: contato.email, endereco: contato.endereco, observacao: contato.observacao, loginLogado: loginLogado },
+            headers: header
         });
     }
 
-    this.login = function(usuario) {
-        return $http({
-            method: 'POST',
-            url: 'usuarioLogon',
-            data: angular.toJson(usuario, true)
-        });
-    }
-
-    this.obterDadosUser = function(usuario, header) {
+    /* this.obterDadosUser = function login(usuario, header) {
         return $http({
             method: 'POST',
             url: 'usuarioDados',
             params: { login: usuario.login },
             headers: header
         });
-    }
+    } */
 
-    this.atualizarUser = function(usuario, senhaBanco, header) {
+    /* this.atualizarUser = function login(usuario, senhaBanco, header) {
         return $http({
             method: 'PUT',
             url: 'usuario/id',
@@ -44,7 +33,7 @@ angular.module('myApp').service('UserService', ['$http', function($http) {
             },
             headers: header
         });
-    }
+    } */
 
 
 }]);

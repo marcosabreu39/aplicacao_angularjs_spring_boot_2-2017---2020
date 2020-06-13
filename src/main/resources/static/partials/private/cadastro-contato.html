@@ -1,0 +1,75 @@
+<div id="content">
+
+    <fieldset class="form-group fieldset">
+
+        <legend class="scheduler-border legend">
+            <h6>Página de cadastro de contatos</h6>
+        </legend>
+        <form name="formCadContato" novalidate method="post" ng-class="{'form-error':submitted}" ng-submit="saveContato(formCadContato)">
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Nome:</label>
+                <div class="col-sm-5">
+                    <input type="text" name="nome" required ng-model="contato.nome" ng-change="resetServerValidation(formCadContato,'nome')" class="form-control" placeholder="Insira um nome entre 4 e 40 caracteres." ng-minlength="4" ng-maxlength="40" />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formCadContato.nome.$error" ng-show="submitted && formCadContato.nome.$invalid" class="error-messages" role="alert" ng-if="formCadContato.nome.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="minlength">No mínimo 4 caracteres.</div>
+                        <div ng-message="maxlength">No máximo 40 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.nome}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">E-mail:</label>
+                <div class="col-sm-5">
+                    <input type="email" name="email" required ng-model="contato.email" ng-change="resetServerValidation(formCadContato,'email')" class="form-control" placeholder="Insira um e-mail válido." />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formCadContato.email.$error" ng-show="submitted && formCadContato.email.$invalid" class="error-messages" role="alert" ng-if="formCadContato.email.$dirty">
+                        <div ng-message="required">Preenchimento obrigatório.</div>
+                        <div ng-message="email">Insira um e-mail válido.</div>
+                        <div ng-message="errorServer">{{errorMessage.email}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Endereço:</label>
+                <div class="col-sm-5">
+                    <input type="text" name="endereco" ng-model="contato.endereco" ng-change="resetServerValidation(formCadContato,'endereco')" class="form-control" placeholder="Insira o endereço com no máximo 60 caracteres." ng-maxlength="60" />
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formCadContato.endereco.$error" ng-show="submitted && formCadContato.endereco.$invalid" class="error-messages" role="alert" ng-if="formCadContato.endereco.$dirty">
+                        <div ng-message="maxlength">No máximo 60 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.endereco}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;">Observação:</label>
+                <div class="col-sm-5">
+                    <textarea class="form-control" rows="3" name="observacao" ng-model="contato.observacao" ng-change="resetServerValidation(formCadContato,'observacao')" placeholder="Insira a observacao com no máximo 200 caracteres." ng-maxlength="200"></textarea>
+                </div>
+                <div class="col-sm-4">
+                    <div ng-messages="formCadContato.observacao.$error" ng-show="submitted && formCadContato.observacao.$invalid" class="error-messages" role="alert" ng-if="formCadContato.observacao.$dirty">
+                        <div ng-message="maxlength">No máximo 200 caracteres.</div>
+                        <div ng-message="errorServer">{{errorMessage.observacao}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 control-label" style="text-align: right;"></label>
+                <div class="col-sm-5">
+                    <button type="submit" class="btn btn-default" id="submit" ng-submit="saveContato(formCadContato)">Cadastrar</button>
+                </div>
+            </div>
+
+        </form>
+
+    </fieldset>
+</div>
