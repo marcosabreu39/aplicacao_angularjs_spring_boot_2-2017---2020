@@ -10,11 +10,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+@CustomContatoValidator
 @Component
 @Entity
 public class Contato implements Serializable {
@@ -34,13 +36,19 @@ public class Contato implements Serializable {
 	private Usuario usuario;
 
 	@Column(nullable = false)
+	@NotNull(message = "Campo obrigatório.")
 	@Size(min = 4, max = 40, message = "Mínimo de 4 e máximo de 40 caracteres.")
 	private String nome;
 
 	@UniqueAttribute(message = "Este e-mail já está cadastrado!")
-	@Column(nullable = false, unique = true)
-	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
+	@Column(nullable = true, unique = true)
+	@Pattern(regexp = "^$|^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
 	private String email;
+
+	@Column(nullable = false)
+	@NotNull(message = "Campo obrigatório.")
+	@Pattern(regexp = "^$|^\\d{10,11}$", message = "Insira um telefone válido.")
+	private String telefone;
 
 	@Column(nullable = true)
 	@Size(max = 60, message = "Máximo de 60 caracteres.")
@@ -80,6 +88,14 @@ public class Contato implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public String getEndereco() {

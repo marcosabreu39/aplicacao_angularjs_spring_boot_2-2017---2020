@@ -1,0 +1,37 @@
+<div id="content">
+
+    <fieldset class="form-group fieldset">
+
+        <legend class="scheduler-border legend">
+            <h6>Página de contatos</h6>
+        </legend>
+
+        <div ng-if="contatos.length > 0">
+            <table class="table table-hover table-striped table-bordered" style="min-height: 500px;">
+                <thead class="active">
+                    <tr>
+                        <th class="col-sm-4">Nome</th>
+                        <th class="col-sm-3">Telefone</th>
+                        <th class="col-sm-1 centered">Detalhes</th>
+                        <th class="col-sm-1 centered">Editar</th>
+                        <th class="col-sm-1 centered">Remover</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="contato in contatos | orderBy: 'nome'" class="row-tb">
+                        <td class="col-sm-5">{{contato.nome}}</td>
+                        <td class="col-sm-2">{{contato.telefone}}</td>
+                        <td class="col-sm-1 centered"><button type="button" class="btn btn-info  btn-sm" ng-click="setContato(contato) ; redirect('detalhesContato')">Detalhes</button></td>
+                        <td class="col-sm-1 centered"><button type="button" class="btn btn-primary btn-sm" ng-click="setContato(contato) ; redirect('editarContato')">Editar</button></td>
+                        <td class="col-sm-1 centered"><button type="button" class="btn btn-danger btn-sm">Remover</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div ng-if="contatos.length == 0" style="min-height: 500px; text-align: center;">
+            <h1>Não há nenhum contato cadastrado</h1>
+        </div>
+
+    </fieldset>
+</div>

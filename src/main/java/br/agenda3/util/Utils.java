@@ -29,6 +29,8 @@ public class Utils {
             contatoParaPersistir.setNome(contato.getNome());
         if (null != contato.getEmail() && !"".equals(contato.getEmail()))
             contatoParaPersistir.setEmail(contato.getEmail());
+            if (null != contato.getTelefone() && !"".equals(contato.getTelefone()))
+            contatoParaPersistir.setTelefone(contato.getTelefone());
         if (null != contato.getEndereco() && !"".equals(contato.getEndereco()))
             contatoParaPersistir.setEndereco(contato.getEndereco());
         if (null != contato.getObservacao() && !"".equals(contato.getObservacao()))

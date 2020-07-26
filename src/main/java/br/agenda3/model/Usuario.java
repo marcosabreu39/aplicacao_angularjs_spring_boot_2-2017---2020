@@ -21,13 +21,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
-@CustomBeanValidator
+@CustomUsuarioValidator
 @Entity
 @Component
 public class Usuario implements Serializable {
@@ -43,18 +44,22 @@ public class Usuario implements Serializable {
 	private Integer id;
 
 	@Column(nullable = false)
+	@NotNull(message = "Campo obrigatório.")
 	@Size(min = 4, max = 30, message = "Mínimo de 4 e máximo de 30 caracteres.")
 	private String nome;
 
 	@Column(nullable = false, unique = true)
+	@NotNull(message = "Campo obrigatório.")
 	@Pattern(regexp = "^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
 	private String email;
 
 	@Column(unique = true, nullable = false)
+	@NotNull(message = "Campo obrigatório.")
 	@Size(min = 4, max = 12, message = "Mínimo de 4 e máximo de 12 caracteres.")
 	private String login;
 
 	@Column(nullable = false)
+	@NotNull(message = "Campo obrigatório.")
 	@Size(min = 4, message = "Mínimo de 4 caracteres.")
 	private String senha;
 

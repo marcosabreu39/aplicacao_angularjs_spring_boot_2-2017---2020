@@ -1,0 +1,58 @@
+<div id="content">
+
+    <fieldset class="form-group fieldset">
+
+        <legend class="scheduler-border legend">
+            <h6>Página de detalhes de um contato</h6>
+        </legend>
+
+        <div style="margin-left: auto; margin-right: auto; width: 50% !important;">
+
+            <table class="table table-hover table-striped table-bordered" style="min-height: 500px; max-width: 1300px;">
+                <thead class="active" style="text-align: center;">
+                    <tr>
+                        <th colspan="2">Detalhes do contato selecionado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-tb">
+                        <td class="col-sm-3">Nome:</td>
+                        <td class="col-sm-7">{{contato.nome}}</td>
+                    </tr>
+                    <tr class="row-tb" ng-show="contato.email">
+                        <td class="col-sm-3">E-mail:</td>
+                        <td class="col-sm-7">{{contato.email}}</td>
+                    </tr>
+                    <tr class="row-tb">
+                        <td class="col-sm-3">Telefone:</td>
+                        <td class="col-sm-7">{{contato.telefone}}</td>
+                    </tr>
+                    <tr class="row-tb" ng-show="contato.endereco">
+                        <td class="col-sm-3">Endereço:</td>
+                        <td class="col-sm-7">{{contato.endereco}}</td>
+                    </tr>
+                    <tr class="row-tb" ng-show="contato.observacao">
+                        <td class="col-sm-3">Observação:</td>
+                        <td class="col-sm-7">{{contato.observacao}}</td>
+                    </tr>
+                    <tr>
+                </tbody>
+                <tfoot class="active" style="text-align: center;">
+                    <tr>
+                        <th colspan="2">Ações</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" class="btn btn-light btn-sm" ng-click="redirect('visualizarContatos')">voltar</button>
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="redirect('editarContato')">Editar</button>
+                            <button type="button" class="btn btn-danger btn-sm">Remover</button>
+                        </td>
+                    </tr>
+                </tfoot>
+                </tr>
+            </table>
+
+        </div>
+
+    </fieldset>
+</div>

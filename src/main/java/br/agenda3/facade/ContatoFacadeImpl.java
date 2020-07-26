@@ -25,4 +25,15 @@ public class ContatoFacadeImpl implements ContatoFacade {
         }
         return retorno;
     }
+
+    @Override
+	public boolean emailJaCadastradoParaOutroId(Integer id, String email) {
+		boolean retorno = false;
+		try {
+			retorno = !contatoRepository.checarEmail(id, email).isEmpty();
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu um erro ao verificar o e-mail!", e);
+		}
+		return retorno;
+	}
 }

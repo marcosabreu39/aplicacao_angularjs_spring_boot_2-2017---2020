@@ -20,7 +20,10 @@ angular.module('myApp').controller('CadContatoCtrl', ['$scope', '$rootScope', 'p
         $scope.submitted = true;
 
         if (formName.$valid) {
-
+            var c = $scope.contato.telefone;
+            if (c != null && !angular.equals(c, '')) {
+                $scope.contato.telefone = $rootScope.removerMascara(c);
+            }
             ContatoService.saveContato($scope.contato, $rootScope.loginLogado, $rootScope.header)
                 .then(function success(response) {
                         if (response.status == 200) {
@@ -77,6 +80,9 @@ angular.module('myApp').controller('CadContatoCtrl', ['$scope', '$rootScope', 'p
             }
             if (formName['email'].$invalid) {
                 formName['email'].$setDirty(true);
+            }
+            if (formName['telefone'].$invalid) {
+                formName['telefone'].$setDirty(true);
             }
             if (formName['endereco'].$invalid) {
                 formName['endereco'].$setDirty(true);
