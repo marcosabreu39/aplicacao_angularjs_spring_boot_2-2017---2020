@@ -40,7 +40,6 @@ public class Contato implements Serializable {
 	@Size(min = 4, max = 40, message = "Mínimo de 4 e máximo de 40 caracteres.")
 	private String nome;
 
-	@UniqueAttribute(message = "Este e-mail já está cadastrado!")
 	@Column(nullable = true, unique = true)
 	@Pattern(regexp = "^$|^([\\w\\-]+\\.)*[\\w\\- ]+@([\\w\\- ]+\\.)+([\\w\\-]{2,3})$", message = "Insira um e-mail válido.")
 	private String email;
