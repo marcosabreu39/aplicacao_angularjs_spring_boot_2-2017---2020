@@ -1,7 +1,7 @@
 /**
  * 
  */
-angular.module('myApp', ['ngRoute', 'ngMessages']);
+angular.module('myApp', ['ngRoute', 'ngMessages', 'ngMask']);
 
 angular.module('myApp').config(function($routeProvider, $locationProvider) {
 
@@ -50,6 +50,36 @@ angular.module('myApp').config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/novoContato', {
         templateUrl: 'partials/private/cadastro-contato.html',
         controller: 'CadContatoCtrl',
+        resolve: {
+            pagina: function() {
+                return 'contatos';
+            }
+        }
+    });
+
+    $routeProvider.when('/visualizarContatos', {
+        templateUrl: 'partials/private/visualizar-contatos.html',
+        controller: 'VisualizarContatosCtrl',
+        resolve: {
+            pagina: function() {
+                return 'contatos';
+            }
+        }
+    });
+
+    $routeProvider.when('/detalhesContato', {
+        templateUrl: 'partials/private/detalhes-contato.html',
+        controller: 'DetalhesContatoCtrl',
+        resolve: {
+            pagina: function() {
+                return 'contatos';
+            }
+        }
+    });
+
+    $routeProvider.when('/editarContato', {
+        templateUrl: 'partials/private/editar-contato.html',
+        controller: 'EditarContatoCtrl',
         resolve: {
             pagina: function() {
                 return 'contatos';

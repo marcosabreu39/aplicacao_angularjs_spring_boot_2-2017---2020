@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import br.agenda3.facade.UsuarioFacade;
 
-public class CustomBeanValidatorImpl implements ConstraintValidator<CustomBeanValidator, Usuario>, Serializable {
+public class CustomUsuarioValidatorImpl implements ConstraintValidator<CustomUsuarioValidator, Usuario>, Serializable {
 
     /**
      *
@@ -21,22 +21,21 @@ public class CustomBeanValidatorImpl implements ConstraintValidator<CustomBeanVa
     @Autowired
     private UsuarioFacade usuarioFacade;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomBeanValidatorImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomUsuarioValidatorImpl.class);
 
     @Override
-    public void initialize(CustomBeanValidator customBeanValidator) {
+    public void initialize(CustomUsuarioValidator customUsuarioValidator) {
     }
 
     @Override
     public boolean isValid(Usuario usuario, ConstraintValidatorContext context) {
         context.disableDefaultConstraintViolation();
 
-        return loginIsValid(usuario, context) & emailIsValid(usuario, context);
+            return loginIsValid(usuario, context) & emailIsValid(usuario, context);
     }
 
     public boolean loginIsValid(Usuario usuario, ConstraintValidatorContext context) {
         boolean valid = false;
-
         try {
             if (usuario.getId() == null) {
                 valid = !usuarioFacade.loginJaCadastrado(usuario.getLogin());
@@ -53,11 +52,10 @@ public class CustomBeanValidatorImpl implements ConstraintValidator<CustomBeanVa
         }
 
         return valid;
-    }
+    } 
 
     public boolean emailIsValid(Usuario usuario, ConstraintValidatorContext context) {
         boolean valid = false;
-
         try {
             if (usuario.getId() == null) {
                 valid = !usuarioFacade.emailJaCadastrado(usuario.getEmail());

@@ -131,7 +131,7 @@ public class UserController {
 
 				retorno = new ResponseEntity<>(HttpStatus.OK);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			LOGGER.error("Ocorreu erro ao obter o usuário!", e);
 			retorno = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}

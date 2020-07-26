@@ -9,12 +9,12 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = CustomBeanValidatorImpl.class)
+@Constraint(validatedBy = CustomUsuarioValidatorImpl.class)
 @Documented
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 
-public @interface CustomBeanValidator {
+public @interface CustomUsuarioValidator {
 
 	String message() default "";
 

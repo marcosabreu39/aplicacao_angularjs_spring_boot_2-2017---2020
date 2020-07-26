@@ -4,36 +4,35 @@ angular.module('myApp').service('ContatoService', ['$http', function($http) {
         return $http({
             method: 'POST',
             url: 'contato',
-            params: { nome: contato.nome, email: contato.email, endereco: contato.endereco, observacao: contato.observacao, loginLogado: loginLogado },
+            params: { nome: contato.nome, email: contato.email, telefone: contato.telefone, endereco: contato.endereco, observacao: contato.observacao, loginLogado: loginLogado },
             headers: header
         });
     }
 
-    /* this.obterDadosUser = function login(usuario, header) {
+    this.obterContatosUser = function(usuario, header) {
         return $http({
-            method: 'POST',
-            url: 'usuarioDados',
+            method: 'GET',
+            url: 'contatos',
             params: { login: usuario.login },
             headers: header
         });
-    } */
+    }
 
-    /* this.atualizarUser = function login(usuario, senhaBanco, header) {
+    this.atualizarContato = function login(contato, header) {
         return $http({
             method: 'PUT',
-            url: 'usuario/id',
+            url: 'contato/id',
             params: {
-                id: usuario.id,
-                nome: usuario.nome,
-                email: usuario.email,
-                login: usuario.login,
-                senha: usuario.senha,
-                dataCadastro: usuario.dataCadastro,
-                senhaBanco: senhaBanco
+                id: contato.id,
+                nome: contato.nome,
+                email: contato.email,
+                telefone: contato.telefone,
+                endereco: contato.endereco,
+                observacao: contato.observacao
             },
             headers: header
         });
-    } */
+    }
 
 
 }]);
