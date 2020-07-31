@@ -14,6 +14,11 @@ angular.module('myApp').controller('DetalhesContatoCtrl', ['$scope', '$rootScope
 
     $rootScope.nivelAlerta('info');
 
-    $scope.contato = $rootScope.contatoSelecionado;
+    var contatoParaVisualizar = $rootScope.contatoSelecionado;
 
+    if (angular.isUndefined(contatoParaVisualizar.nome) || angular.isUndefined(contatoParaVisualizar.telefone)) {
+        $rootScope.redirect('home');
+    } else {
+        $scope.contato = contatoParaVisualizar;
+    }
 }]);

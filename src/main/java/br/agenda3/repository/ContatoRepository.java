@@ -14,6 +14,6 @@ public interface ContatoRepository extends JpaRepository<Contato, Integer> {
     @Query("SELECT c FROM Contato c WHERE c.email =?1")
 	List<Contato> checarEmail(String email) throws Exception;
 
-    @Query("SELECT c FROM Contato c WHERE c.email =?2 and c.email not in (SELECT c.email FROM Contato c WHERE c.id =?1)")
-	List<Contato> checarEmail(Integer id, String email) throws Exception;
+    @Query("SELECT c FROM Contato c WHERE c.email =?2 and c.id <>?1")
+    List<Contato> checarEmail(Integer id, String email) throws Exception;
 }

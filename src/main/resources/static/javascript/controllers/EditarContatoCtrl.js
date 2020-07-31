@@ -18,20 +18,36 @@ angular.module('myApp').controller('EditarContatoCtrl', ['$scope', '$rootScope',
         $scope.submitted = true;
 
         if (formName.$valid) {
-
+            var telComMascara = $scope.contato.telefone;
+            $scope.contato.telefone = $rootScope.removerMascara(telComMascara);
             ContatoService.atualizarContato($scope.contato, $rootScope.header)
                 .then(function success(response) {
-                        if (response.status == 201) {
+                        if (response.status == 200) {
                             $rootScope.mensagem = 'Contato atualizado com sucesso!';
                             $rootScope.nivelAlerta('success');
                             $scope.submitted = false;
-                            $rootScope.setContato(contato);
-                            $scope.contato = null;
+                            var telSemMascara = $scope.contato.telefone;
+                            $scope.contato.telefone = $rootScope.adicionarMascara(telSemMascara);;
+                            $rootScope.setContato($scope.contato);
                             $rootScope.redirect('detalhesContato');
                         }
                     },
                     function error(response) {
                         if (response.status == 409) {
+                            var errorMessageJson = this;
+                            errorMessageJson = response.data;
+                            $scope.errorMessage = angular.fromJson(errorMessageJson);
+
+                            angular.forEach($scope.errorMessage, function(message, attribute) {
+
+                                formName[attribute].$setValidity('errorServer', false);
+
+                            });
+
+                            $rootScope.mensagem = 'Erro ao tentar atualizar o contato!'
+                            $rootScope.nivelAlerta('danger');
+
+                        } else if (response.status == 500) {
                             var errorMessageJson = this;
                             errorMessageJson = response.data;
                             $scope.errorMessage = angular.fromJson(errorMessageJson);

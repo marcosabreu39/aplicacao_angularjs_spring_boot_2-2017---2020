@@ -23,18 +23,19 @@ public class Utils {
     }
 
     public static Contato prepararObjetoContato(Contato contatoParaPersistir, Contato contato) {
-        if (null != contato.getId() && !"".equals(contato.getId()))
+        if (null != contato.getId() && !"".equals(contato.getId().toString())) {
             contatoParaPersistir.setId(contato.getId());
-        if (null != contato.getNome() && !"".equals(contato.getNome()))
+        }
+        if (null != contato.getNome() && !"".equals(contato.getNome())) {
             contatoParaPersistir.setNome(contato.getNome());
-        if (null != contato.getEmail() && !"".equals(contato.getEmail()))
-            contatoParaPersistir.setEmail(contato.getEmail());
-            if (null != contato.getTelefone() && !"".equals(contato.getTelefone()))
+        }
+        contatoParaPersistir.setEmail(contato.getEmail());
+
+        if (null != contato.getTelefone() && !"".equals(contato.getTelefone())) {
             contatoParaPersistir.setTelefone(contato.getTelefone());
-        if (null != contato.getEndereco() && !"".equals(contato.getEndereco()))
-            contatoParaPersistir.setEndereco(contato.getEndereco());
-        if (null != contato.getObservacao() && !"".equals(contato.getObservacao()))
-            contatoParaPersistir.setObservacao(contato.getObservacao());
+        }
+        contatoParaPersistir.setEndereco(contato.getEndereco());
+        contatoParaPersistir.setObservacao(contato.getObservacao());
 
         return contatoParaPersistir;
     }
