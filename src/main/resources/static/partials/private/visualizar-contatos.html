@@ -23,14 +23,15 @@
                         <td class="col-sm-2">{{contato.telefone}}</td>
                         <td class="col-sm-1 centered"><button type="button" class="btn btn-info  btn-sm" ng-click="setContato(contato) ; redirect('detalhesContato')">Detalhes</button></td>
                         <td class="col-sm-1 centered"><button type="button" class="btn btn-primary btn-sm" ng-click="setContato(contato) ; redirect('editarContato')">Editar</button></td>
-                        <td class="col-sm-1 centered"><button type="button" class="btn btn-danger btn-sm">Remover</button></td>
+                        <td class="col-sm-1 centered"><button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal">Remover</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div ng-if="contatos.length == 0" style="min-height: 500px; text-align: center;">
-            <h1>Não há nenhum contato cadastrado</h1>
+        <div ng-if="contatos.length == 0" class="jumbotron" style="border: 1px solid black;">
+            <h1 class="display-4">Não há nenhum contato cadastrado</h1>
+            <p class="lead">Para inserir um contato, acesse o menu 'Contatos' e selecione a opção 'Novo Contato'.</p>
         </div>
 
     </fieldset>

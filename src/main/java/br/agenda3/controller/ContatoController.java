@@ -7,24 +7,19 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.agenda3.facade.ContatoFacade;
 import br.agenda3.facade.UsuarioFacade;
 import br.agenda3.model.Contato;
 import br.agenda3.model.Usuario;
@@ -34,7 +29,13 @@ import br.agenda3.util.Utils;
 public class ContatoController {
 
     @Autowired
+    private Contato contato;
+
+    @Autowired
     private UsuarioFacade usuarioFacade;
+
+    @Autowired
+    private ContatoFacade contatoFacade;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ContatoController.class);
 
@@ -88,18 +89,30 @@ public class ContatoController {
 
     }
     
-    /* Os erros de validação são enviados diretamente para o frontend via json */
 	@PutMapping("/contato/id")
-	public ResponseEntity<Object> atualizarUser(@Valid Contato contato, BindingResult br) {
-		ResponseEntity<Object> retorno = null;
-		try {
+    public ResponseEntity<Object> atualizarContato(@Valid Contato contato, BindingResult br) {
+        ResponseEntity<Object> retorno = null;
+        try {
+            final Map<String, String> erros = new HashMap<>();
+            if (br.hasErrors()) {
+                final List<FieldError> errors = br.getFieldErrors();
 
-            
+                for (final FieldError error : errors) {
 
-		} catch (final Exception e) {
-			LOGGER.error("Ocorreu erro ao obter o usuário!", e);
-			retorno = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return retorno;
-	}
+                    erros.put(error.getField(), error.getDefaultMessage());
+
+                    retorno = new ResponseEntity<>(erros, HttpStatus.CONFLICT);
+                }
+            } else {
+                this.contato = contatoFacade.buscarContato(contato.getId());
+                Utils.prepararObjetoContato(this.contato, contato);
+                contatoFacade.atualizarContato(this.contato);
+                retorno = new ResponseEntity<>(HttpStatus.OK);
+            }
+        } catch (final Exception e) {
+            LOGGER.error("Ocorreu erro ao obter o usuário!", e);
+            retorno = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return retorno;
+    }
 }
