@@ -68,7 +68,7 @@ public class Usuario implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date dataCadastro;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval = true)
 	private List<Contato> contatos = new ArrayList<>();
 
 	@ManyToMany

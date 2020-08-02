@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -63,12 +64,11 @@ public class ContatoController {
 
     @GetMapping(value = "/contatos")
 	public ResponseEntity<List<Object>> obterContatosUser(Usuario usuario) {
-            
 		    ResponseEntity<List<Object>> retorno = null;
             List<Object>contatos = new ArrayList<>();
 		try {
-			usuario = usuarioFacade.obterUsuario(usuario.getLogin());
-
+            usuario = usuarioFacade.obterUsuario(usuario.getLogin());
+            
             for (Contato contato : usuario.getContatos()) {
                 Map<String, String> dadosContato = new HashMap<>();
                     dadosContato.put("id", contato.getId().toString());
@@ -77,6 +77,7 @@ public class ContatoController {
                     dadosContato.put("telefone", contato.getTelefone());
                     dadosContato.put("endereco", contato.getEndereco());
                     dadosContato.put("observacao", contato.getObservacao());
+                    
                  contatos.add(dadosContato);
                 }
           
@@ -111,6 +112,22 @@ public class ContatoController {
             }
         } catch (final Exception e) {
             LOGGER.error("Ocorreu erro ao obter o usuário!", e);
+            retorno = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return retorno;
+    }
+
+    @DeleteMapping("contato/id")
+    public ResponseEntity<Object> removerContato(Contato contato, String login) {
+        ResponseEntity<Object> retorno = null;
+        try {
+            this.contato = contatoFacade.buscarContato(contato.getId());
+            Usuario usuario = usuarioFacade.obterUsuario(login);
+            this.contato.setUsuario(usuario);
+            contatoFacade.removerContato(this.contato);
+            retorno = new ResponseEntity<>(HttpStatus.OK);
+        } catch (final Exception e) {
+            LOGGER.error("Ocorreu erro ao tentar remover o usuário!", e);
             retorno = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return retorno;

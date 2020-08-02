@@ -71,7 +71,6 @@ angular.module('myApp').controller('DadosUserCtrl', ['$scope', '$rootScope', '$f
             });
     }
 
-
     $scope.obterDadosUser(usuarioParaObter, $rootScope.header);
 
     $scope.atualizarUser = function(formName) {

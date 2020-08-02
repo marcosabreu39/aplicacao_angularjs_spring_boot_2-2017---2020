@@ -1,4 +1,4 @@
-angular.module('myApp').run(function($rootScope, $location) {
+angular.module('myApp').run(function($rootScope, $location, ContatoService) {
 
     $rootScope.token = '';
 
@@ -25,6 +25,8 @@ angular.module('myApp').run(function($rootScope, $location) {
     $rootScope.regexTelefone = /^\d{10,11}$|^\(\d{2}\) \d{4}-\d{4}$|^\(\d{2}\) [9]\d{4}-\d{4}$/;
 
     $rootScope.contatoSelecionado = {};
+
+    $rootScope.contatoParaRemover = {};
 
     $rootScope.getContato = function() {
         return $rootScope.contatoSelecionado;
@@ -114,6 +116,23 @@ angular.module('myApp').run(function($rootScope, $location) {
     $rootScope.removerMascara = function(objeto) {
         var objetoSemMascara = objeto.replace(/[^0-9]+/g, '');
         return objetoSemMascara;
+    }
+
+    $rootScope.removerContato = function(contato) {
+        $rootScope.removerContatoSelecionado(contato);
+        ContatoService.removerContato(contato, $rootScope.loginLogado, $rootScope.header).then(function success(response) {
+                if (response.status == 200) {
+                    $rootScope.mensagem = 'Contato removido com sucesso!';
+                    $rootScope.redirect('visualizarContatos');
+                    $rootScope.nivelAlerta('success');
+                }
+            },
+            function error(response) {
+                if (response.status == 500) {
+                    $rootScope.mensagem = 'Ocorreu erro ao tentar remover o contato!';
+                    $rootScope.nivelAlerta('danger');
+                }
+            });
     }
 
 });

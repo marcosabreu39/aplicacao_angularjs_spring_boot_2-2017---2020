@@ -20,5 +20,5 @@ public interface UsuarioFacade {
 
 	void atualizarUsuario(Usuario usuario);
 
-	
+	public Usuario buscarUsuario(Integer id);	
 }

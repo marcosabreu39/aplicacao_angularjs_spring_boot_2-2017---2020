@@ -4,13 +4,14 @@
 
 angular.module('myApp').controller('VisualizarContatosCtrl', ['$scope', '$rootScope', 'pagina', 'ContatoService', function($scope, $rootScope, pagina, ContatoService) {
 
-    $rootScope.mensagem = "Bem vindo à página de contatos";
+    if (!$rootScope.mensagem.endsWith('removido com sucesso!')) {
+        $rootScope.mensagem = "Bem vindo à página de contatos";
+        $rootScope.nivelAlerta('info');
+    }
 
     $scope.pagina = pagina;
 
     $rootScope.defineAtivo(pagina);
-
-    $rootScope.nivelAlerta('info');
 
     var usuarioParaObter = { 'login': $rootScope.loginLogado };
 
@@ -18,10 +19,14 @@ angular.module('myApp').controller('VisualizarContatosCtrl', ['$scope', '$rootSc
 
     $scope.contato = this;
 
-    $scope.contatoSelecionado = function(contato) {
-        $scope.contato = contato;
-        $rootScope.mensagem = "Bem vindo à página de detalhes do contato";
+    $rootScope.removerContatoSelecionado = function(contato) {
+        var index = $scope.contatos.indexOf(contato);
+        $scope.contatos.splice(index, 1);
     }
+
+    /* $scope.setContatoParaRemover = function(contato) {
+        $rootScope.contatoParaRemover = contato;
+    } */
 
     $scope.obterContatosUser = function(usuario, header) {
 
@@ -50,5 +55,9 @@ angular.module('myApp').controller('VisualizarContatosCtrl', ['$scope', '$rootSc
 
     $scope.obterContatosUser(usuarioParaObter, $rootScope.header);
 
+    /* if (!angular.isUndefined($rootScope.contatoParaRemover.nome) && !angular.isUndefined($rootScope.contatoParaRemover.telefone)) {
+        removerContato($rootScope.contatoParaRemover);
+        $rootScope.contatoParaRemover = {};
+    } */
 
 }]);

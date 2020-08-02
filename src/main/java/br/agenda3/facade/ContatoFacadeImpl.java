@@ -46,7 +46,7 @@ public class ContatoFacadeImpl implements ContatoFacade {
         try {
             retorno = contatoRepository.findById(id);
         } catch (Exception e) {
-            LOGGER.error("Ocorreu um erro ao tentar atualizar o contato!", e);
+            LOGGER.error("Ocorreu um erro ao tentar buscar o contato!", e);
         }
         return retorno.get();
     }
@@ -59,4 +59,14 @@ public class ContatoFacadeImpl implements ContatoFacade {
 			LOGGER.error("Ocorreu erro ao tentar atualizar o contato!", e);
 		}
 	}
+
+    @Override
+    public void removerContato(Contato contato) {
+        try {
+            // contatoRepository.delete(contatoRepository.findById(contato.getId()).get());
+            contatoRepository.deleteById(contato.getId());
+        } catch (Exception e) {
+            LOGGER.error("Ocorreu erro ao tentar remover o contato!", e);
+        }
+    }
 }
