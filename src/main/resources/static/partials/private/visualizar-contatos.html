@@ -7,7 +7,7 @@
         </legend>
 
         <div ng-if="contatos.length > 0">
-            <table class="table table-hover table-striped table-bordered" style="min-height: 500px;">
+            <table class="table table-hover table-striped table-bordered">
                 <thead class="active">
                     <tr>
                         <th class="col-sm-4">Nome</th>
@@ -23,7 +23,7 @@
                         <td class="col-sm-2">{{contato.telefone}}</td>
                         <td class="col-sm-1 centered"><button type="button" class="btn btn-info  btn-sm" ng-click="setContato(contato) ; redirect('detalhesContato')">Detalhes</button></td>
                         <td class="col-sm-1 centered"><button type="button" class="btn btn-primary btn-sm" ng-click="setContato(contato) ; redirect('editarContato')">Editar</button></td>
-                        <td class="col-sm-1 centered"><button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal">Remover</button></td>
+                        <td class="col-sm-1 centered"><button type="button" id="jumbo" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal" ng-click="setContato(contato)">Remover</button></td>
                     </tr>
                 </tbody>
             </table>

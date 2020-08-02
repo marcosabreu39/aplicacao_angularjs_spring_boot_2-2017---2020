@@ -1,5 +1,7 @@
 package br.agenda3.facade;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,4 +106,14 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 		}
 	}
 
+	@Override
+	public Usuario buscarUsuario(Integer id) {
+		Optional<Usuario> optUsuario = null;
+		try {
+			optUsuario = usuarioRepository.findById(id);
+		} catch (Exception e) {
+			LOGGER.error("Ocorreu erro ao tentar buscar o usuário!", e);
+		}
+		return optUsuario.get();
+	}
 }

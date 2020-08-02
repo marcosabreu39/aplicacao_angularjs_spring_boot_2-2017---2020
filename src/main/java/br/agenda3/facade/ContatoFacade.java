@@ -11,4 +11,6 @@ public interface ContatoFacade {
     Contato buscarContato(Integer id);
 
     void atualizarContato(Contato contato);
+
+    void removerContato(Contato contato);
 }
