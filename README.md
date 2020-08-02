@@ -9,10 +9,10 @@
 * Angularjs 1.6.4;
 * JSON Web Token;
 * Spring Boot 2;
-   *Spring Boot 2 Data;
-   *Spring Boot 2 Security;
-   *Spring Boot 2 Hibernate JPA Repository;
-   *Spring Boot 2 Embedded Apache Tomcat;	
+   * Spring Boot 2 Data;
+   * Spring Boot 2 Security;
+   * Spring Boot 2 Hibernate JPA Repository;
+   * Spring Boot 2 Embedded Apache Tomcat;	
 * Bootstrap 4;
 * Maven;
 * SL4j Logger;
