@@ -1,4 +1,4 @@
-# Aplicação com Tiles, Struts e Hibernate
+# Aplicação com Angularjs e Spring Boot 2
 
 ## Tecnologias
 
