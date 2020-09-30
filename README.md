@@ -1,4 +1,4 @@
-# Aplicação com Angularjs e Spring Boot 2
+# Aplicação com Angularjs e Spring Boot 2       
 
 ## Tecnologias
 
@@ -19,6 +19,10 @@
 * Banco de dados PostgreSQL 9;
 * IDE Eclipse;
 * IDE Visual Studio Code;
+
+```
+![Visitor Count](https : //profile-counter.glitch.me/{marcosabreu39}/count.svg)
+```
 
 ```
 Cadastro de usuário
