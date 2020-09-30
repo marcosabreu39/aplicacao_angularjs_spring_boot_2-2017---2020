@@ -21,10 +21,6 @@
 * IDE Visual Studio Code;
 
 ```
-![Visitor Count](https : //profile-counter.glitch.me/{marcosabreu39}/count.svg)
-```
-
-```
 Cadastro de usuário
 ```
 <p align="center">
